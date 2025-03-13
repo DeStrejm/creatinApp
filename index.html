@@ -3,14 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moja Webówka</title>
+    <title>creatinApp</title>
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json"> 
 </head>
 <body>
-    <h1>Witaj w mojej webówce! 🚀</h1>
-    <p>To jest moja pierwsza aplikacja PWA!</p>
-    <button onclick="powiadomienie()">Pokaż powiadomienie</button>
+    <div class="app-container">
+        <header>
+            <h1>creatinApp</h1>
+        </header>
+
+        <main>
+            <div class="content">
+                <p class="message">Kliknij poniżej, aby potwierdzić, że wziąłeś kreatynę!</p>
+                <button id="takeCreatineButton" class="confirm-button">Wziąłem kreatynę</button>
+                <button id="resetButton" class="reset-button" style="display:none;">Cofnij</button> <!-- Przycisk do wycofania -->
+            </div>
+        </main>
+    </div>
 
     <script src="script.js"></script>
     <script>
