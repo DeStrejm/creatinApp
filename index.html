@@ -3,16 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>creatinApp</title> <!-- Zmieniona nazwa strony w karcie -->
+    <title>creatinApp</title>
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json"> 
 </head>
 <body>
     <div id="app">
-        <h1>Witaj w creatinApp! 🚀</h1>
-        <p>To jest Twoje codzienne przypomnienie o wzięciu kreatyny!</p>
-        <button id="takeCreatineBtn">Wzięte!</button>
-        <p id="reminderStatus">Przypomnienie o godzinie 16:00</p>
+        <h1>creatinApp</h1>
+        <p id="reminderStatus">Twoje codzienne przypomnienie o wzięciu kreatyny!</p>
+        
+        <!-- Pierwszy przycisk do zaznaczenia "Wzięte" -->
+        <button id="takeCreatineBtn" onclick="powiadomienie()">WZIĘTE!</button>
+        
+        <!-- Drugi przycisk do resetowania stanu przypomnienia -->
+        <button id="resetBtn" onclick="resetPrzycisk()" style="display: none;">RESETUJ</button>
+        
+        <div id="notificationStatus" style="display: none;">
+            <p>Przypomnienie zostało wyłączone. Dziękujemy!</p>
+        </div>
     </div>
     <script src="script.js"></script>
     <script>

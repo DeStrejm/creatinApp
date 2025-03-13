@@ -1,74 +1,129 @@
+/* Resetowanie marginesów i paddingu */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Wyłączenie zoomowania i przybliżania */
+html, body {
+    touch-action: manipulation;
+    user-select: none;
+}
+
+/* Ustawienia ogólne dla body */
 body {
     font-family: 'Roboto', sans-serif;
-    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); /* Gradient w tle */
-    color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    overflow: hidden;
+    min-height: 100vh;
     text-align: center;
+    flex-direction: column;
+    background-color: transparent; /* Tło nie będzie widoczne */
+    overflow: hidden; /* Zapobieganie przewijaniu */
 }
 
+/* Kontener aplikacji, który ma proporcje 9:16 */
 #app {
-    background: rgba(255, 255, 255, 0.1); /* Przezroczysty tło */
-    border-radius: 12px;
-    padding: 40px;
-    width: 90%;
-    max-width: 400px;
-    backdrop-filter: blur(10px); /* Efekt rozmycia */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    width: 90vw; /* Szerokość kontenera na 90% szerokości ekranu */
+    height: 160vw; /* Wysokość kontenera proporcjonalna do szerokości ekranu, 9:16 */
+    max-width: 800px; /* Maksymalna szerokość kontenera */
+    max-height: 1422px; /* Maksymalna wysokość kontenera */
+    background: #ffffff; /* Białe tło dla kontenera */
+    border-radius: 15px; /* Zaokrąglone rogi */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Cień wokół kontenera */
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
 }
 
+/* Nagłówek aplikacji */
 h1 {
-    font-size: 26px;
+    font-size: 2rem;
+    color: #3d6e8f; /* Kolor niebiesko-szary dla nagłówka */
+    margin-bottom: 20px;
     font-weight: 700;
-    margin-bottom: 30px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
 }
 
+/* Styl przycisku */
 button {
-    background-color: #00c853; /* Kolor przycisku */
+    background-color: #4CAF50; /* Zielony kolor dla przycisku */
     color: white;
-    font-size: 18px;
-    padding: 20px 40px;
+    padding: 15px 30px;
+    font-size: 1.1rem;
     border: none;
-    border-radius: 50px; /* Okrągły przycisk */
+    border-radius: 50px;
     cursor: pointer;
-    transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, background-color 0.3s ease;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 350px; /* Maksymalna szerokość przycisku */
 }
 
 button:hover {
-    background-color: #00b34d; /* Zmiana koloru przycisku na hover */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    background-color: #45a049; /* Drobna zmiana koloru na ciemniejszy przy najechaniu */
 }
 
 button:active {
     transform: scale(0.95); /* Efekt wciśnięcia przycisku */
+    background-color: #3c8e42; /* Jeszcze ciemniejszy kolor przy wciśnięciu */
 }
 
+/* Status przypomnienia */
+#notificationStatus {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: #28a745; /* Zielony kolor dla potwierdzenia */
+    font-weight: 600;
+}
+
+/* Informacja o przypomnieniu */
 #reminderStatus {
-    margin-top: 30px;
-    font-size: 18px;
-    color: #f0f0f0;
-    font-weight: 500;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    color: #444; /* Ciemny odcień dla tekstu przypomnienia */
 }
 
-@media (max-width: 480px) {
+/* Responsywność dla mniejszych ekranów */
+@media (max-width: 600px) {
+    body {
+        padding: 0; /* Brak paddingu na mniejszych ekranach */
+    }
+
+    #app {
+        width: 90vw; /* Szerokość kontenera na 90% ekranu */
+        height: 160vw; /* Proporcjonalna wysokość do szerokości ekranu */
+        padding: 20px; /* Zmniejszenie paddingu */
+    }
+
     h1 {
-        font-size: 22px;
+        font-size: 1.6rem; /* Zmniejszenie rozmiaru nagłówka na mniejszych ekranach */
     }
 
     button {
-        font-size: 16px;
-        padding: 15px 30px;
+        padding: 15px 20px; /* Zmniejszenie paddingu przycisku */
+        font-size: 1.2rem; /* Zwiększenie rozmiaru czcionki przycisku */
+    }
+
+    #app {
+        background: #ffffff; /* Zawsze biały kontener */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Cień wokół kontenera */
+    }
+}
+
+@media (max-width: 400px) {
+    /* Dla bardzo małych ekranów */
+    #app {
+        width: 90vw; /* Szerokość kontenera na 90% ekranu */
+        height: 160vw; /* Proporcjonalna wysokość do szerokości ekranu */
+    }
+
+    button {
+        font-size: 1rem; /* Zmniejszenie czcionki przycisku */
+        padding: 12px 25px; /* Zmniejszenie paddingu */
     }
 }
