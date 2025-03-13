@@ -1,16 +1,22 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const takeCreatineButton = document.getElementById('takeCreatineButton');
-    const resetButton = document.getElementById('resetButton');
+document.getElementById('takeCreatineBtn').addEventListener('click', function() {
+    document.getElementById('reminderStatus').innerText = 'Wzięto kreatynę! 🏋️‍♂️';
 
-    // Obsługa kliknięcia przycisku "Wziąłem kreatynę"
-    takeCreatineButton.addEventListener('click', function() {
-        takeCreatineButton.classList.add('active'); // Aktywuj "wciśnięty" stan
-        resetButton.style.display = 'block'; // Pokaż przycisk do cofnęcia
-    });
-
-    // Obsługa kliknięcia przycisku "Cofnij"
-    resetButton.addEventListener('click', function() {
-        takeCreatineButton.classList.remove('active'); // Cofnij stan "wciśnięty"
-        resetButton.style.display = 'none'; // Ukryj przycisk "Cofnij"
-    });
+    // Zapisujemy informację w lokalnym storage (możesz to rozbudować)
+    localStorage.setItem('creatineTaken', 'true');
+    
+    // Zamykamy powiadomienie o przypomnieniu
+    if ('Notification' in window) {
+        Notification.requestPermission().then(permission => {
+            if (permission === "granted") {
+                new Notification("Kreatyna wzięta! 🎉", {
+                    body: "Dziękujemy za regularność! 😎",
+                    icon: "icon.png"
+                });
+            }
+        });
+    }
 });
+
+if (localStorage.getItem('creatineTaken') === 'true') {
+    document.getElementById('reminderStatus').innerText = 'Kreatyna już wzięta dzisiaj!';
+}
