@@ -50,22 +50,28 @@ function resetPrzycisk() {
     resetBtn.style.display = "none";
 }
 
-// Automatyczne resetowanie codziennie o północy
-function autoReset() {
+// Funkcja do obliczenia czasu do 14:40
+function setReminderFor14_40() {
     const now = new Date();
-    const nextMidnight = new Date();
-    nextMidnight.setHours(24, 0, 0, 0); // Ustawiamy godzinę na północ
+    const targetHour = 14;
+    const targetMinute = 40;
+    
+    let targetTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), targetHour, targetMinute, 0, 0);
+    
+    // Jeśli już minęło 14:40, ustawiamy przypomnienie na następny dzień
+    if (now > targetTime) {
+        targetTime.setDate(targetTime.getDate() + 1);
+    }
 
-    const timeUntilMidnight = nextMidnight - now;
+    const timeUntilReminder = targetTime - now;  // Obliczanie czasu do powiadomienia
 
     setTimeout(() => {
-        resetPrzycisk(); // Wywołujemy reset przycisku po północy
-        autoReset(); // Uruchamiamy funkcję ponownie, aby codziennie resetować
-    }, timeUntilMidnight);
+        powiadomienie(); // Wywołanie funkcji powiadomienia o 14:40
+    }, timeUntilReminder); // Ustawiamy timeout na czas do 14:40
 }
 
-// Uruchamiamy autoReset na początku
-autoReset();
+// Uruchamiamy przypomnienie
+setReminderFor14_40();
 
 // Jeżeli aplikacja została wcześniej uruchomiona i przycisk został kliknięty, ustawiamy stan
 if (isClicked) {
