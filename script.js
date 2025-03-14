@@ -7,7 +7,7 @@ const resetBtn = document.getElementById("resetBtn");
 function powiadomienie() {
     if (!isClicked) {
         isClicked = true;
-        
+
         // Zapisujemy stan w localStorage
         localStorage.setItem("isClicked", "true");
 
@@ -50,15 +50,15 @@ function resetPrzycisk() {
     resetBtn.style.display = "none";
 }
 
-// Funkcja do obliczenia czasu do 14:40
-function setReminderFor14_40() {
+// Funkcja do obliczenia czasu do 14:45
+function setReminderFor14_45() {
     const now = new Date();
     const targetHour = 14;
-    const targetMinute = 40;
+    const targetMinute = 45;
     
     let targetTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), targetHour, targetMinute, 0, 0);
     
-    // Jeśli już minęło 14:40, ustawiamy przypomnienie na następny dzień
+    // Jeśli już minęło 14:45, ustawiamy przypomnienie na następny dzień
     if (now > targetTime) {
         targetTime.setDate(targetTime.getDate() + 1);
     }
@@ -66,12 +66,12 @@ function setReminderFor14_40() {
     const timeUntilReminder = targetTime - now;  // Obliczanie czasu do powiadomienia
 
     setTimeout(() => {
-        powiadomienie(); // Wywołanie funkcji powiadomienia o 14:40
-    }, timeUntilReminder); // Ustawiamy timeout na czas do 14:40
+        powiadomienie(); // Wywołanie funkcji powiadomienia o 14:45
+    }, timeUntilReminder); // Ustawiamy timeout na czas do 14:45
 }
 
 // Uruchamiamy przypomnienie
-setReminderFor14_40();
+setReminderFor14_45();
 
 // Jeżeli aplikacja została wcześniej uruchomiona i przycisk został kliknięty, ustawiamy stan
 if (isClicked) {
