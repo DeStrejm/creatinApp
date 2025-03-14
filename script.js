@@ -33,6 +33,12 @@ function powiadomieniePoKliknieciu() {
         wyslijPowiadomienie("Powiadomienia zostały włączone", "Pamiętaj, aby wziąć kreatynę! 💪");
         localStorage.setItem("isClicked", "true"); // Zapisujemy stan, że przycisk został kliknięty
         isClicked = true;  // Ustawiamy flagę na kliknięte
+        // Zmieniamy stan przycisku
+        takeCreatineBtn.disabled = true;
+        takeCreatineBtn.style.backgroundColor = "#ccc"; // Zmieniamy kolor przycisku
+        notificationStatus.innerText = "Przypomnienie ustawione na dzisiaj!";
+        notificationStatus.style.display = "block";
+        resetBtn.style.display = "block";  // Pokazujemy przycisk resetowania
     }
 }
 
@@ -101,3 +107,6 @@ setReminderFor15_00();
 
 // Podpinamy funkcję do kliknięcia przycisku
 takeCreatineBtn.addEventListener("click", powiadomieniePoKliknieciu);
+
+// Upewnij się, że reset przycisku działa
+resetBtn.addEventListener("click", resetPrzycisk);
