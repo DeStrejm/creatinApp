@@ -82,15 +82,15 @@ if (isClicked) {
     resetBtn.style.display = "none";
 }
 
-// Funkcja, która wywołuje powiadomienia o 15:00
-function setReminderFor15_00() {
+// Funkcja, która wywołuje powiadomienia o 18:00
+function setReminderFor18_00() {
     const now = new Date();
-    const targetHour = 15;
+    const targetHour = 18;
     const targetMinute = 0;
     
     let targetTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), targetHour, targetMinute, 0, 0);
     
-    // Jeśli już minęło 15:00, ustawiamy przypomnienie na następny dzień
+    // Jeśli już minęło 18:00, ustawiamy przypomnienie na następny dzień
     if (now > targetTime) {
         targetTime.setDate(targetTime.getDate() + 1);
     }
@@ -98,12 +98,12 @@ function setReminderFor15_00() {
     const timeUntilReminder = targetTime - now;  // Obliczanie czasu do powiadomienia
 
     setTimeout(() => {
-        wyslijPowiadomienie("Czas na kreatynę! 💪", "Pamiętaj, aby wziąć kreatynę!"); // Wywołanie funkcji powiadomienia o 15:00
-    }, timeUntilReminder); // Ustawiamy timeout na czas do 15:00
+        wyslijPowiadomienie("Czas na kreatynę! 💪", "Pamiętaj, aby wziąć kreatynę!"); // Wywołanie funkcji powiadomienia o 18:00
+    }, timeUntilReminder); // Ustawiamy timeout na czas do 18:00
 }
 
 // Uruchamiamy przypomnienie
-setReminderFor15_00();
+setReminderFor18_00();
 
 // Podpinamy funkcję do kliknięcia przycisku
 takeCreatineBtn.addEventListener("click", powiadomieniePoKliknieciu);
