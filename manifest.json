@@ -1,17 +1,21 @@
 {
-    "name": "Creatine Reminder",
-    "short_name": "creatinApp",
-    "description": "Aplikacja przypomnienia o wzięciu kreatyny.",
-    "start_url": "/",
-    "display": "standalone",
-    "background_color": "#ffffff",
-    "theme_color": "#4CAF50",
-    "icons": [
-      {
-        "src": "icon.png",
-        "sizes": "192x192",
-        "type": "image/png"
-      }
-    ]
-  }
-  
+  "name": "Creatin App",
+  "short_name": "Creatin",
+  "description": "Aplikacja przypominająca o zażywaniu kreatyny",
+  "start_url": "/creatinApp/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4CAF50",
+  "icons": [
+    {
+      "src": "icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
