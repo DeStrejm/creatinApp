@@ -3,45 +3,37 @@ const notificationStatus = document.getElementById("notificationStatus");
 const takeCreatineBtn = document.getElementById("takeCreatineBtn");
 const resetBtn = document.getElementById("resetBtn");
 
-// Funkcja do obsługi powiadomienia
-function powiadomienie() {
-    if (!isClicked) {
-        isClicked = true;
-
-        // Zapisujemy stan w localStorage
-        localStorage.setItem("isClicked", "true");
-
-        // Sprawdzamy, czy dostępne są powiadomienia w przeglądarce
-        if ("Notification" in window) {
-            // Żądanie zgody na wyświetlanie powiadomień (tylko jeśli nie zostało wcześniej udzielone)
-            if (Notification.permission === "default") {
-                Notification.requestPermission().then(permission => {
-                    if (permission === "granted") {
-                        new Notification("Czas na kreatynę! 💪", {
-                            body: "Pamiętaj, aby wziąć kreatynę!",
-                            icon: "/creatinApp/icon-180.png" // Upewnij się, że ścieżka do ikony jest poprawna
-                        });
-                    }
-                });
-            } else if (Notification.permission === "granted") {
-                // Jeśli zgoda już została udzielona, natychmiast wysyłamy powiadomienie
-                new Notification("Czas na kreatynę! 💪", {
-                    body: "Pamiętaj, aby wziąć kreatynę!",
-                    icon: "/creatinApp/icon-180.png"
-                });
-            }
+// Funkcja do wysyłania powiadomienia
+function wyslijPowiadomienie(title, body) {
+    // Sprawdzamy, czy dostępne są powiadomienia w przeglądarce
+    if ("Notification" in window) {
+        // Jeśli zgoda na powiadomienia nie została jeszcze udzielona
+        if (Notification.permission === "default") {
+            Notification.requestPermission().then(permission => {
+                if (permission === "granted") {
+                    new Notification(title, {
+                        body: body,
+                        icon: "/creatinApp/icon-180.png" // Upewnij się, że ścieżka do ikony jest poprawna
+                    });
+                }
+            });
+        } else if (Notification.permission === "granted") {
+            // Jeśli zgoda została już udzielona, natychmiast wysyłamy powiadomienie
+            new Notification(title, {
+                body: body,
+                icon: "/creatinApp/icon-180.png"
+            });
         }
+    }
+}
 
-        // Zmiana tekstu statusu przypomnienia
-        notificationStatus.innerText = "Przypomnienie ustawione na dzisiaj!";
-        notificationStatus.style.display = "block";
-
-        // Wyłączenie przycisku po kliknięciu
-        takeCreatineBtn.disabled = true;
-        takeCreatineBtn.style.backgroundColor = "#ccc"; // Zmiana koloru przycisku po kliknięciu
-        
-        // Pokazanie przycisku resetowania
-        resetBtn.style.display = "block";
+// Funkcja do wysyłania powiadomienia po kliknięciu przycisku
+function powiadomieniePoKliknieciu() {
+    // Sprawdzamy, czy powiadomienie zostało już wysłane
+    if (!isClicked) {
+        wyslijPowiadomienie("Powiadomienia zostały włączone", "Pamiętaj, aby wziąć kreatynę! 💪");
+        localStorage.setItem("isClicked", "true"); // Zapisujemy stan, że przycisk został kliknięty
+        isClicked = true;  // Ustawiamy flagę na kliknięte
     }
 }
 
@@ -73,15 +65,26 @@ if (isClicked) {
     resetBtn.style.display = "none";
 }
 
-// Funkcja, która wywołuje powiadomienia o 14:45
-function setReminderFor14_45() {
+// Zapytanie o zgodę na powiadomienia po załadowaniu strony
+if (Notification.permission === "default") {
+    Notification.requestPermission().then(permission => {
+        if (permission === "granted") {
+            console.log("Zgoda na powiadomienia została udzielona.");
+        } else {
+            console.log("Zgoda na powiadomienia została odrzucona.");
+        }
+    });
+}
+
+// Funkcja, która wywołuje powiadomienia o 15:00
+function setReminderFor15_00() {
     const now = new Date();
-    const targetHour = 14;
-    const targetMinute = 45;
+    const targetHour = 15;
+    const targetMinute = 0;
     
     let targetTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), targetHour, targetMinute, 0, 0);
     
-    // Jeśli już minęło 14:45, ustawiamy przypomnienie na następny dzień
+    // Jeśli już minęło 15:00, ustawiamy przypomnienie na następny dzień
     if (now > targetTime) {
         targetTime.setDate(targetTime.getDate() + 1);
     }
@@ -89,9 +92,12 @@ function setReminderFor14_45() {
     const timeUntilReminder = targetTime - now;  // Obliczanie czasu do powiadomienia
 
     setTimeout(() => {
-        powiadomienie(); // Wywołanie funkcji powiadomienia o 14:45
-    }, timeUntilReminder); // Ustawiamy timeout na czas do 14:45
+        wyslijPowiadomienie("Czas na kreatynę! 💪", "Pamiętaj, aby wziąć kreatynę!"); // Wywołanie funkcji powiadomienia o 15:00
+    }, timeUntilReminder); // Ustawiamy timeout na czas do 15:00
 }
 
 // Uruchamiamy przypomnienie
-setReminderFor14_45();
+setReminderFor15_00();
+
+// Podpinamy funkcję do kliknięcia przycisku
+takeCreatineBtn.addEventListener("click", powiadomieniePoKliknieciu);
