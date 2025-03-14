@@ -5,7 +5,6 @@ const resetBtn = document.getElementById("resetBtn");
 
 // Funkcja do wysyłania powiadomienia
 function wyslijPowiadomienie(title, body) {
-    // Sprawdzamy, czy dostępne są powiadomienia w przeglądarce
     if ("Notification" in window) {
         // Jeśli zgoda na powiadomienia nie została jeszcze udzielona
         if (Notification.permission === "default") {
@@ -50,6 +49,18 @@ function resetPrzycisk() {
     resetBtn.style.display = "none";
 }
 
+// Zapytanie o zgodę na powiadomienia po załadowaniu strony
+if (Notification.permission === "default") {
+    // Zapytanie o zgodę na powiadomienia natychmiast po załadowaniu aplikacji
+    Notification.requestPermission().then(permission => {
+        if (permission === "granted") {
+            console.log("Zgoda na powiadomienia została udzielona.");
+        } else {
+            console.log("Zgoda na powiadomienia została odrzucona.");
+        }
+    });
+}
+
 // Sprawdzamy stan przycisku po załadowaniu strony
 if (isClicked) {
     notificationStatus.innerText = "Przypomnienie ustawione na dzisiaj!";
@@ -63,17 +74,6 @@ if (isClicked) {
     takeCreatineBtn.disabled = false;
     takeCreatineBtn.style.backgroundColor = "#4CAF50";
     resetBtn.style.display = "none";
-}
-
-// Zapytanie o zgodę na powiadomienia po załadowaniu strony
-if (Notification.permission === "default") {
-    Notification.requestPermission().then(permission => {
-        if (permission === "granted") {
-            console.log("Zgoda na powiadomienia została udzielona.");
-        } else {
-            console.log("Zgoda na powiadomienia została odrzucona.");
-        }
-    });
 }
 
 // Funkcja, która wywołuje powiadomienia o 15:00
