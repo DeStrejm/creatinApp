@@ -2,7 +2,7 @@
   "name": "Creatin App",
   "short_name": "Creatin",
   "description": "Aplikacja przypominająca o zażywaniu kreatyny",
-  "start_url": "/creatinApp/",
+  "start_url": "https://destrejm.github.io/creatinApp/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#4CAF50",
